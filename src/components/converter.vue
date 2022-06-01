@@ -140,6 +140,8 @@ export default {
     border:none;
     border-bottom: 1px solid #000;
     outline:none;
+    max-width: 100%;
+    text-align: center;
   }
 
   .devise {

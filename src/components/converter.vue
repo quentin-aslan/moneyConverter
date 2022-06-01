@@ -1,15 +1,18 @@
 <template>
   <input ref="inputEur" class="input" type="text" v-model="inputEUR" @keyup="eurChange" @focus="deleteValue"><span class="devise">€</span>
   <input class="input" type="text" v-model="inputCA" @keyup="dollardChange" @focus="deleteValue"><span class="devise">C$</span>
-
-  <p>
-    Last update : <strong>{{new Date(parseInt(this.dateUpdate)).toLocaleString()}}</strong> Current : <strong>{{new Date().toLocaleTimeString()}}</strong>
-  </p>
+  <LastUpdateMsg :lastUpdate="dateUpdate"/>
 </template>
 
 <script>
+
+import LastUpdateMsg from "@/components/LastUpdateMsg";
+
 export default {
   name: "ConverterQ",
+  components: {
+    LastUpdateMsg
+  },
   props: ["devise"],
   data() {
     return {
@@ -96,11 +99,12 @@ export default {
         alert("Erreur API");
       }
     },
+
+
     eurChange() {
       this.formatInputValue();
       this.updateMoneys();
       const calcul = this.inputEUR * this.EURtoCA;
-      console.log(calcul);
       this.inputCA = (calcul).toFixed(2);
     },
     dollardChange() {

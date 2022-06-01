@@ -1,3 +1,3 @@
 # MoneyConverter
 
-POC sur Vue, application qui pourra mettre utile ! 
+POC sur Vue, application qui pourra être utile ! 

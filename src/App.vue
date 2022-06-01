@@ -1,15 +1,14 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Converter/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Converter from './components/converter.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Converter
   }
 }
 </script>
@@ -21,6 +20,15 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+
+}
+
+body {
+  overflow: hidden;
+}
+
+* {
+  background-color: #D4D3DC;
+  color: #2c3e50;
 }
 </style>

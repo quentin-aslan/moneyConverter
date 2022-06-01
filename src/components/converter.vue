@@ -1,5 +1,5 @@
 <template>
-  <input class="input" type="text" v-model="inputEUR" @keyup="eurChange" @focus="deleteValue"><span class="devise">€</span>
+  <input ref="inputEur" class="input" type="text" v-model="inputEUR" @keyup="eurChange" @focus="deleteValue"><span class="devise">€</span>
   <input class="input" type="text" v-model="inputCA" @keyup="dollardChange" @focus="deleteValue"><span class="devise">C$</span>
 
   <p>
@@ -23,6 +23,7 @@ export default {
   mounted() {
     this.getLocalStorage();
     this.updateMoneys();
+    this.$refs.inputEur.focus();
   },
   methods: {
     getLocalStorage() {
@@ -110,8 +111,19 @@ export default {
       this.inputEUR = calcul.toFixed(2);
     },
     formatInputValue() {
-      this.inputEUR = (this.inputEUR) ? this.inputEUR.replace(",", ".") : "";
-      this.inputCA = (this.inputCA) ? this.inputCA.replace(",", ".") : "";
+      if(this.inputEUR) {
+        if(this.inputEUR[0] === "0") {
+          this.inputEUR = this.inputEUR.slice(1);
+        }
+        this.inputEUR.replace(",", ".");
+      }
+
+      if(this.inputCA) {
+        if(this.inputCA[0] === "0") {
+          this.inputCA = this.inputCA.slice(1);
+        }
+        this.inputCA.replace(",", ".");
+      }
     },
     deleteValue(event) {
         event.target.value = "";

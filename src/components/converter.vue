@@ -1,7 +1,7 @@
 <template>
   <input ref="inputEur" class="input" type="text" v-model="inputEUR" @keyup="eurChange" @focus="deleteValue"><span class="devise">€</span>
   <input class="input" type="text" v-model="inputCA" @keyup="dollardChange" @focus="deleteValue"><span class="devise">C$</span>
-  <LastUpdateMsg :lastUpdate="dateUpdate"/>
+  <LastUpdateMsg :lastUpdate="lastUpdate" />
 </template>
 
 <script>
@@ -20,7 +20,7 @@ export default {
       inputCA: 0,
       EURtoCA: 1.36,
       CAtoEUR: 0.73,
-      dateUpdate: 0
+      lastUpdate: 0
     }
   },
   mounted() {
@@ -38,19 +38,18 @@ export default {
         this.CAtoEUR = localStorage.getItem("CAtoEUR");
       }
 
-      if(localStorage.getItem("dateUpdate")) {
-        this.dateUpdate = localStorage.getItem("dateUpdate");
+      if(localStorage.getItem("lastUpdate")) {
+        this.lastUpdate = localStorage.getItem("lastUpdate");
       }
     },
 
     async updateMoneys() {
       const oneDay = 86400000;
-      const diff = Date.now() - this.dateUpdate;
+      const diff = Date.now() - this.lastUpdate;
       console.log(`Difference: ${diff} ms 24h: ${oneDay} ms`);
-      if((Date.now() - this.dateUpdate) > oneDay) {
-        console.log("Update !");
-        this.dateUpdate = Date.now();
-        localStorage.setItem("dateUpdate", this.dateUpdate);
+      if((Date.now() - this.lastUpdate) > oneDay) {
+        this.lastUpdate = Date.now();
+        localStorage.setItem("lastUpdate", this.lastUpdate);
         await this.getEURtoCA();
         await this.getCAtoEUR();
         console.log(`EUR to CA: ${this.EURtoCA}`);
